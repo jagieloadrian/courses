@@ -1,0 +1,25 @@
+package com.adrian.courses.services;
+
+import com.adrian.courses.model.dto.StudentDto;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+
+@FeignClient(name = "STUDENT-SERVICE")
+@RequestMapping("/students")
+public interface StudentServiceClient {
+
+    @GetMapping
+    List<StudentDto> getStudents();
+
+    @GetMapping("/{id}")
+    StudentDto getStudentById(@PathVariable Long id);
+
+    @PostMapping("/emails")
+    List<StudentDto> getStudentsByEmail(@RequestBody List<String> emails);
+}
